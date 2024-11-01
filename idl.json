@@ -1,0 +1,195 @@
+{
+    "version": "0.1.0",
+    "name": "rapr_mvp",
+    "instructions": [
+      {
+        "name": "initialize",
+        "accounts": [
+          { "name": "programState", "isMut": true, "isSigner": false },
+          { "name": "usdcTokenAccount", "isMut": false, "isSigner": false },
+          { "name": "treasuryAccount", "isMut": false, "isSigner": false },
+          { "name": "adminAuthority", "isMut": true, "isSigner": true },
+          { "name": "usdcMint", "isMut": false, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "rent", "isMut": false, "isSigner": false }
+        ],
+        "args": [
+          { "name": "ticketPrice", "type": "u64" },
+          { "name": "ticketRewardRate", "type": "u64" },
+          { "name": "stakingRewardRate", "type": "u64" },
+          { "name": "vestingDuration", "type": "i64" },
+          { "name": "maxTickets", "type": "u64" }
+        ]
+      },
+      {
+        "name": "purchaseTickets",
+        "accounts": [
+          { "name": "userState", "isMut": true, "isSigner": false },
+          { "name": "userUsdcAccount", "isMut": true, "isSigner": false },
+          { "name": "userAuthority", "isMut": true, "isSigner": true },
+          { "name": "usdcTokenAccount", "isMut": true, "isSigner": false },
+          { "name": "programState", "isMut": true, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false }
+        ],
+        "args": [{ "name": "amount", "type": "u64" }]
+      },
+      {
+        "name": "redeemTickets",
+        "accounts": [
+          { "name": "userState", "isMut": true, "isSigner": false },
+          { "name": "userRaprAccount", "isMut": true, "isSigner": false },
+          { "name": "userAuthority", "isMut": false, "isSigner": true },
+          { "name": "treasuryAccount", "isMut": true, "isSigner": false },
+          { "name": "programState", "isMut": true, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false }
+        ],
+        "args": []
+      },
+      {
+        "name": "stakeRapr",
+        "accounts": [
+          { "name": "userState", "isMut": true, "isSigner": false },
+          { "name": "userRaprAccount", "isMut": true, "isSigner": false },
+          { "name": "userAuthority", "isMut": true, "isSigner": true },
+          { "name": "stakingAccount", "isMut": true, "isSigner": false },
+          { "name": "programState", "isMut": false, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false }
+        ],
+        "args": [{ "name": "amount", "type": "u64" }]
+      },
+      {
+        "name": "unstakeRapr",
+        "accounts": [
+          { "name": "userState", "isMut": true, "isSigner": false },
+          { "name": "userRaprAccount", "isMut": true, "isSigner": false },
+          { "name": "userAuthority", "isMut": true, "isSigner": true },
+          { "name": "stakingAccount", "isMut": true, "isSigner": false },
+          { "name": "treasuryAccount", "isMut": true, "isSigner": false },
+          { "name": "programState", "isMut": false, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false }
+        ],
+        "args": [{ "name": "amount", "type": "u64" }]
+      },
+      {
+        "name": "updateParameters",
+        "accounts": [
+          { "name": "programState", "isMut": true, "isSigner": false },
+          { "name": "adminAuthority", "isMut": false, "isSigner": true }
+        ],
+        "args": [
+          { "name": "newTicketPrice", "type": { "option": "u64" } },
+          { "name": "newTicketRewardRate", "type": { "option": "u64" } },
+          { "name": "newStakingRewardRate", "type": { "option": "u64" } },
+          { "name": "newMaxTickets", "type": { "option": "u64" } },
+          { "name": "newVestingDuration", "type": { "option": "i64" } }
+        ]
+      },
+      {
+        "name": "depositRaprToTreasury",
+        "accounts": [
+          { "name": "programState", "isMut": false, "isSigner": false },
+          { "name": "adminRaprAccount", "isMut": true, "isSigner": false },
+          { "name": "adminAuthority", "isMut": true, "isSigner": true },
+          { "name": "treasuryAccount", "isMut": true, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false },
+          { "name": "rent", "isMut": false, "isSigner": false }
+        ],
+        "args": [{ "name": "amount", "type": "u64" }]
+      },
+      {
+        "name": "withdrawRaprFromTreasury",
+        "accounts": [
+          { "name": "programState", "isMut": false, "isSigner": false },
+          { "name": "adminRaprAccount", "isMut": true, "isSigner": false },
+          { "name": "adminAuthority", "isMut": false, "isSigner": true },
+          { "name": "treasuryAccount", "isMut": true, "isSigner": false },
+          { "name": "raprMint", "isMut": false, "isSigner": false },
+          { "name": "tokenProgram", "isMut": false, "isSigner": false },
+          { "name": "systemProgram", "isMut": false, "isSigner": false }
+        ],
+        "args": [{ "name": "amount", "type": "u64" }]
+      }
+    ],
+    "accounts": [
+      {
+        "name": "ProgramState",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            { "name": "ticketPrice", "type": "u64" },
+            { "name": "ticketRewardRate", "type": "u64" },
+            { "name": "maxTickets", "type": "u64" },
+            { "name": "totalCirculatingTickets", "type": "u64" },
+            { "name": "stakingRewardRate", "type": "u64" },
+            { "name": "vestingDuration", "type": "i64" },
+            { "name": "treasuryAccount", "type": "publicKey" },
+            { "name": "usdcMint", "type": "publicKey" },
+            { "name": "raprMint", "type": "publicKey" },
+            { "name": "adminAuthority", "type": "publicKey" },
+            { "name": "usdcTokenAccount", "type": "publicKey" }
+          ]
+        }
+      },
+      {
+        "name": "UserState",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            { "name": "tickets", "type": "u64" },
+            { "name": "ticketPurchasePrice", "type": "u64" },
+            { "name": "ticketPurchaseTimestamp", "type": "i64" },
+            { "name": "ticketRewardRate", "type": "u64" },
+            { "name": "stakedRapr", "type": "u64" },
+            { "name": "stakingStartTimestamp", "type": "i64" },
+            { "name": "stakingRewardRate", "type": "u64" }
+          ]
+        }
+      }
+    ],
+    "errors": [
+      {
+        "code": 6000,
+        "name": "CalculationOverflow",
+        "msg": "Calculation resulted in an overflow"
+      },
+      { "code": 6001, "name": "InvalidTimestamp", "msg": "Invalid timestamp" },
+      {
+        "code": 6002,
+        "name": "InsufficientTickets",
+        "msg": "Insufficient tickets"
+      },
+      {
+        "code": 6003,
+        "name": "InsufficientHoldingDuration",
+        "msg": "Insufficient holding period"
+      },
+      {
+        "code": 6004,
+        "name": "TicketsAlreadyPurchased",
+        "msg": "Tickets already purchased"
+      },
+      {
+        "code": 6005,
+        "name": "MaxTicketsExceeded",
+        "msg": "Max Tickets Exceeded"
+      },
+      {
+        "code": 6006,
+        "name": "InsufficientStakedRAPR",
+        "msg": "Insufficient staked RAPR"
+      },
+      { "code": 6007, "name": "Unauthorized", "msg": "Unauthorized" }
+    ]
+  }
+  
